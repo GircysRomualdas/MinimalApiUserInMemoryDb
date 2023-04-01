@@ -49,5 +49,19 @@ namespace UserInformationAPI.Controllers
 
             return new JsonResult(Ok(result));
         }
+
+        [HttpDelete]
+        public JsonResult Delete(int id)
+        {
+            var result = _context.Info.Find(id);
+
+            if (result == null)
+                return new JsonResult(NotFound());
+
+            _context.Info.Remove(result);
+            _context.SaveChanges();
+
+            return new JsonResult(NoContent());
+        }
     }
 }
