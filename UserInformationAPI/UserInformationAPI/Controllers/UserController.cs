@@ -29,9 +29,7 @@ namespace UserInformationAPI.Controllers
                 var UserDb = _context.Info.Find(user.Id);
 
                 if(UserDb == null)
-                {
                     return new JsonResult(NotFound());
-                }
 
                 UserDb = user;
             }
@@ -39,6 +37,17 @@ namespace UserInformationAPI.Controllers
             _context.SaveChanges();
 
             return new JsonResult(Ok(user));
+        }
+
+        [HttpGet]
+        public JsonResult Get(int id)
+        {
+            var result = _context.Info.Find(id);
+
+            if(result == null)
+                return new JsonResult(NotFound());
+
+            return new JsonResult(Ok(result));
         }
     }
 }
