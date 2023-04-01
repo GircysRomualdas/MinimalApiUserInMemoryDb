@@ -16,5 +16,29 @@ namespace UserInformationAPI.Controllers
         {
             _context = context;
         }
+
+        [HttpPost]
+        public JsonResult CreateEdit(Users user)
+        {
+            if(user.Id == 0)
+            {
+                _context.Info.Add(user);
+            }
+            else
+            {
+                var UserDb = _context.Info.Find(user.Id);
+
+                if(UserDb == null)
+                {
+                    return new JsonResult(NotFound());
+                }
+
+                UserDb = user;
+            }
+
+            _context.SaveChanges();
+
+            return new JsonResult(Ok(user));
+        }
     }
 }
