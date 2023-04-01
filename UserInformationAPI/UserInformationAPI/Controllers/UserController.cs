@@ -6,7 +6,7 @@ using UserInformationAPI.Data;
 
 namespace UserInformationAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -62,6 +62,14 @@ namespace UserInformationAPI.Controllers
             _context.SaveChanges();
 
             return new JsonResult(NoContent());
+        }
+
+        [HttpGet("/GetAll")]
+        public JsonResult GetAll() 
+        {
+            var result = _context.Info.ToList();
+
+            return new JsonResult(Ok(result));
         }
     }
 }
